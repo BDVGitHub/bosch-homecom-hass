@@ -779,7 +779,21 @@ class BoschComSensorHs(BoschComSensorBase):
             "totalWorkingTimeReadable": totalWorkingTimeReadable,
         }
 
-        if not len(consumption):
+        consumption = (self.coordinator.data.heat_sources.get("consumption") or {}).get(
+            "values"
+        ) or []
+        # The API can return missing/unknown values; ensure we always work with a list
+        if not isinstance(consumption, list):
+            consumption = []
+
+        def _cons(idx: int, key: str):
+            try:
+                item = consumption[idx]
+            except IndexError:
+                return "unknown"
+            return item.get(key, "unknown") if isinstance(item, dict) else "unknown"
+
+        if not consumption:
             result.update(
                 {
                     "totalConsumptionOutputProduced": consumption,
@@ -790,11 +804,9 @@ class BoschComSensorHs(BoschComSensorBase):
         else:
             result.update(
                 {
-                    "totalConsumptionOutputProduced": (consumption[0] or {}).get(
-                        "outputProduced", "unknown"
-                    ),
-                    "totalConsumptionEheater": (consumption[1] or {}).get("eheater", "unknown"),
-                    "totalConsumptionCompressor": (consumption[2] or {}).get("compressor", "unknown"),
+                    "totalConsumptionOutputProduced": _cons(0, "outputProduced"),
+                    "totalConsumptionEheater": _cons(1, "eheater"),
+                    "totalConsumptionCompressor": _cons(2, "compressor"),
                 }
             )
         return result
