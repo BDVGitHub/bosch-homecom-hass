@@ -54,7 +54,7 @@ async def async_setup_entry(
                     coordinator=coordinator, config_entry=config_entry
                 )
             )
-        elif device_type in ("k40", "k30", "icom"):
+        elif device_type in ("k40", "k30", "icom", "rrc2"):
             entities.append(
                 BoschComSensorNotificationsK40(
                     coordinator=coordinator, config_entry=config_entry
@@ -68,7 +68,7 @@ async def async_setup_entry(
             )
 
         # ---- K40/K30 (existing) ----
-        if device_type in ("k40", "k30", "icom"):
+        if device_type in ("k40", "k30", "icom", "rrc2"):
             # DHW circuits
             for ref in coordinator.data.dhw_circuits:
                 dhw_id = ref["id"].split("/")[-1]

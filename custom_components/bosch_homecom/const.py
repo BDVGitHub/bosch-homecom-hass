@@ -22,6 +22,7 @@ MODEL = {
     "k40": "Bosch boiler",
     "wddw2": "Bosch Water Heater",
     "icom": "Bosch Heat Pump",
+    "rrc2": "Bosch Thermostat",
 }
 
 ATTR_NOTIFICATIONS = "notifications"

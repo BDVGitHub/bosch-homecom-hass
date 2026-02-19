@@ -50,7 +50,7 @@ async def async_setup_entry(
                     coordinator=coordinator, field="clima"
                 )
             )
-        elif device_type in ("k40", "k30", "icom"):
+        elif device_type in ("k40", "k30", "icom", "rrc2"):
             for ref in coordinator.data.heating_circuits:
                 hc_id = ref["id"].split("/")[-1]
                 entities.append(

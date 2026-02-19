@@ -121,7 +121,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                     auth_provider,
                 )
             )
-        elif device["deviceType"] in ("k40", "k30", "icom"):
+        elif device["deviceType"] in ("k40", "k30", "icom", "rrc2"):
             coordinators.append(
                 BoschComModuleCoordinatorK40(
                     hass,
