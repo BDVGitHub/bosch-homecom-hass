@@ -763,7 +763,7 @@ class BoschComSensorHs(BoschComSensorBase):
 
         systemPressure = (
             (self.coordinator.data.heat_sources.get("systemPressure") or {})
-            .get("values", ["unknown"])
+            .get("value", ["unknown"])
         )
 
         totalWorkingTimeReadable = self.seconds_to_readable(int((self.coordinator.data.heat_sources.get("totalWorkingTime") or {}).get("value", 0) or 0))
